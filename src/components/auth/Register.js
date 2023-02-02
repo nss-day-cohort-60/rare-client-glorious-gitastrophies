@@ -27,8 +27,7 @@ export const Register = ({setToken}) => {
         bio: bio.current.value
       }
 
-      registerUser(newUser)
-        .then(res => {
+      registerUser(newUser).then((res) => {
           if ("valid" in res && res.valid) {
             setToken(res.token)
             navigate("/")
