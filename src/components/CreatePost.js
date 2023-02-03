@@ -3,7 +3,10 @@ import { useState, useEffect } from "react"
 
 export const CreatePost = () => {
 
-    const [post, setPost] = useState({})
+    const [post, setPost] = useState({
+        approved : 1,
+        publication_date: new Date()
+    })
     // const navigate = useNavigate()
 
 
