@@ -26,7 +26,7 @@ export const PostList = () => {
         <section>
             {
                 posts.map(post => {
-                    return <Post post={post} />
+                    return <Post post={post} key={`post--${post.id}`} />
                 })
             }
         </section>
