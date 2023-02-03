@@ -7,6 +7,8 @@ import { HumanDate } from "../utils/HumanDate";
 export const PostDetails = ({ token}) => {
   const [post, setPost] = useState({})
   const [user, setUser] = useState({})
+    const { userId } = useParams()
+
 
   const { postId } = useParams()
 
