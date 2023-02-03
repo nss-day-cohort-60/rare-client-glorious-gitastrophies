@@ -6,7 +6,9 @@ export const CreatePost = () => {
     const [post, setPost] = useState({
         approved : 1,
         publication_date: new Date(),
-        title: "default title"
+        title: "",
+        image_url : "",
+        content: ""
     })
 
 
@@ -73,8 +75,8 @@ export const CreatePost = () => {
         <fieldset>
             <div className="form-group">
             <label htmlFor="content">Post Content: </label>
-            <textarea type="textbox" rows="5" cols="30" name="content" required autoFocus className="form-control" placeholder="Post Content" 
-            // onChange={handleNewPostInfo} 
+            <textarea type="textbox" id="content" rows="5" cols="30" name="content" required autoFocus className="form-control" placeholder="Post Content" 
+            onChange={handleInputChange} 
             />
             </div>
         </fieldset>
@@ -88,7 +90,7 @@ export const CreatePost = () => {
                 className="form-control"
                 placeholder="Image URL here"
                 // value={userChoices.image_url}
-                // onChange={handleInputChange}
+                onChange={handleInputChange}
                 />
             </div>
         </fieldset>
