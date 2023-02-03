@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react"
+import { useNavigate ,useParams } from "react-router-dom"
 
 
 export const CreatePost = () => {
 
     const [post, setPost] = useState({
-        approved : 1,
-        publication_date: new Date(),
         title: "",
         image_url : "",
         content: ""
@@ -17,42 +16,9 @@ export const CreatePost = () => {
         copyOfPost[event.target.id] = event.target.value;
         setPost(copyOfPost);
       };
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
 
 
-    // const constructPost = () => {
-    //     const locationId = parseInt(post.)
-    
-    //     if (locationId === 0 || isNaN(locationId)) {
-    //       window.alert("Please select a location")
-    //     } else {
-    //       if (postId) {
-    //         // PUT
-    //         updatePost({
-    //           id: post.id,
-    //           user_id: post.user_id,
-    //           title: post.title,
-    //           publication_date: post.publication_date,
-    //           image_url: post.image_url,
-    //           content: post.content,
-    //           approved: post.approved
-    //         })
-    //           .then(() => navigate("/posts"))
-    //       } else {
-    //         // POST
-    //         addPost({
-    //             id: post.id,
-    //             user_id: post.user_id,
-    //             title: post.title,
-    //             publication_date: post.publication_date,
-    //             image_url: post.image_url,
-    //             content: post.content,
-    //             approved: post.approved
-    //         })
-    //           .then(() => navigate("/posts"))
-    //       }
-    //     }
-    //   }
 
     const handleSubmit = () => {
         console.log(post)
@@ -61,6 +27,26 @@ export const CreatePost = () => {
             alert("better add a title")
         } else if (post.content === "") {
             alert("you have no body")
+        } else { 
+            var body = {
+                user_id: 1,  // TODO: add user to local storage
+                title: post.title,
+                publication_date: new Date(),
+                image_url: post.image_url,
+                content: post.content,
+                approved : 1
+            }
+            fetch("http://localhost:8088/posts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+                })
+                .then((res) => res.json())
+                .then(() => {
+                    navigate('/')
+                });
         }
     }
 
@@ -95,7 +81,6 @@ export const CreatePost = () => {
                 type="text"
                 className="form-control"
                 placeholder="Image URL here"
-                // value={userChoices.image_url}
                 onChange={handleInputChange}
                 />
             </div>
@@ -103,7 +88,6 @@ export const CreatePost = () => {
         <button type="submit"
             onClick={evt => {
                 evt.preventDefault()
-                // constructPost()
                 handleSubmit()
             }}
             className="btn btn-primary">
