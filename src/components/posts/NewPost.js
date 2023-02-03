@@ -32,6 +32,7 @@ export const NewPost = ({token}) => {
         } else { 
             var body = {
                 user_id: token,
+                category_id: post.category_id,
                 title: post.title,
                 publication_date: new Date(),
                 image_url: post.image_url,
@@ -63,6 +64,16 @@ export const NewPost = ({token}) => {
             <input type="text" name="title" id="title" required autoFocus className="form-control"
                 placeholder="Title of Post"
                 defaultValue={post.title}
+                onChange={handleInputChange}
+            />
+            </div>
+        </fieldset>
+        <fieldset>
+            <div className="form-group">
+            <label htmlFor="title">Category: </label>
+            <input type="text" name="title" id="title" required autoFocus className="form-control"
+                placeholder="Category"
+                defaultValue={post.category_id}
                 onChange={handleInputChange}
             />
             </div>
