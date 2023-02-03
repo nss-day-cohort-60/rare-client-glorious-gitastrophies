@@ -29,6 +29,7 @@ export const ApplicationViews = ({ token, setToken }) => {
         <Route path="/newPost" element={< NewPost token={token} />} />
         <Route path="/" element={<PostList />} />
       </Route>
+      
     </Routes>
   </>
 }
