@@ -1,0 +1,25 @@
+.posts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.post {
+    flex-basis: 28%;
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid goldenrod;
+}
+
+.card-body {
+    color: black;
+}
+
+.post__username-link {
+    color: blue;
+    text-decoration: underline;
+  }
+  
+  .post__username {
+    color: green;
+  }
