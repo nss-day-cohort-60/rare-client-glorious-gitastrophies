@@ -5,8 +5,16 @@ export const CreatePost = () => {
 
     const [post, setPost] = useState({
         approved : 1,
-        publication_date: new Date()
+        publication_date: new Date(),
+        title: "default title"
     })
+
+
+    const handleInputChange = (event) => {
+        const copyOfPost = { ...post };
+        copyOfPost[event.target.id] = event.target.value;
+        setPost(copyOfPost);
+      };
     // const navigate = useNavigate()
 
 
@@ -55,10 +63,10 @@ export const CreatePost = () => {
         <fieldset>
             <div className="form-group">
             <label htmlFor="title">Title: </label>
-            <input type="text" name="title" required autoFocus className="form-control"
+            <input type="text" name="title" id="title" required autoFocus className="form-control"
                 placeholder="Title of Post"
-                // defaultValue={post.title}
-                // onChange={handleControlledInputChange}
+                defaultValue={post.title}
+                onChange={handleInputChange}
             />
             </div>
         </fieldset>
