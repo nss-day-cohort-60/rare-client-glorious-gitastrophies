@@ -56,6 +56,12 @@ export const CreatePost = () => {
 
     const handleSubmit = () => {
         console.log(post)
+
+        if (post.title === "") {
+            alert("better add a title")
+        } else if (post.content === "") {
+            alert("you have no body")
+        }
     }
 
   return (
