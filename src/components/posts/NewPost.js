@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useNavigate ,useParams } from "react-router-dom"
 
 
-export const CreatePost = ({token}) => {
+export const NewPost = ({token}) => {
 
     const [post, setPost] = useState({
         title: "",
@@ -20,8 +20,10 @@ export const CreatePost = ({token}) => {
 
 
 
-    const handleSubmit = () => {
+    const handleSubmit = (event) => {
         console.log(post)
+
+        event.preventDefault();
 
         if (post.title === "") {
             alert("better add a title")
@@ -29,13 +31,14 @@ export const CreatePost = ({token}) => {
             alert("you have no body")
         } else { 
             var body = {
-                user_id: 1,  // TODO: add user to local storage
+                user_id: token,
                 title: post.title,
                 publication_date: new Date(),
                 image_url: post.image_url,
                 content: post.content,
                 approved : 1
             }
+            console.log(body)
             fetch("http://localhost:8088/posts", {
                 method: "POST",
                 headers: {
@@ -86,10 +89,7 @@ export const CreatePost = ({token}) => {
             </div>
         </fieldset>
         <button type="submit"
-            onClick={evt => {
-                evt.preventDefault()
-                handleSubmit()
-            }}
+            onClick={handleSubmit}
             className="btn btn-primary">
         </button>
         </form>
