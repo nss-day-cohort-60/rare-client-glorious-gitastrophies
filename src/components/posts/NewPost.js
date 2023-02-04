@@ -5,9 +5,13 @@ import { useNavigate ,useParams } from "react-router-dom"
 export const NewPost = ({token}) => {
 
     const [post, setPost] = useState({
+        user_id: "",
         title: "",
+        category_id: 0,
+        publication_date: 0,
         image_url : "",
-        content: ""
+        content: "",
+        approved: 0
     })
 
 
@@ -15,7 +19,7 @@ export const NewPost = ({token}) => {
         const copyOfPost = { ...post };
         copyOfPost[event.target.id] = event.target.value;
         setPost(copyOfPost);
-      };
+    };
     const navigate = useNavigate()
 
 
@@ -32,8 +36,8 @@ export const NewPost = ({token}) => {
         } else { 
             var body = {
                 user_id: token,
-                category_id: post.category_id,
                 title: post.title,
+                category_id: post.category_id,
                 publication_date: new Date(),
                 image_url: post.image_url,
                 content: post.content,
@@ -56,7 +60,7 @@ export const NewPost = ({token}) => {
 
   return (
     <section>
-         <form className="postForm">
+        <form className="postForm">
         <h2>Create a Post</h2>
         <fieldset>
             <div className="form-group">
@@ -70,8 +74,8 @@ export const NewPost = ({token}) => {
         </fieldset>
         <fieldset>
             <div className="form-group">
-            <label htmlFor="title">Category: </label>
-            <input type="text" name="title" id="title" required autoFocus className="form-control"
+            <label htmlFor="category_id">Category: </label>
+            <input type="number" name="category_id" id="category_id" required autoFocus className="form-control"
                 placeholder="Category"
                 defaultValue={post.category_id}
                 onChange={handleInputChange}

@@ -16,13 +16,6 @@ export const PostList = () => {
     return (
         <div style={{ margin: "0rem 3rem" }}>
         <h1>Post</h1>
-
-            {/* <p>{""}</p>
-            <section key={posts.id} className="post"> */}
-            {/* <h2>{post.title}</h2>
-
-
-                {post.map(a => <div key={`post--${a.id}`}>{a.title} ({a.publication_date}) ({a.content})</div>)} */}
         <section>
             {
                 posts.map(post => {
