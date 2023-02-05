@@ -18,6 +18,7 @@ export const PostDetails = ({ token}) => {
     <div className="post__category_id">Category: {post?.category?.label} </div> 
     <div className="post__publication_date">Date published: {post?.publication_date}</div>
     <h2 className="post__content"> {post?.content}</h2>
+    <Link className="post__comments" to={`/posts/${postId}/comments`}>Comments</Link>
     </section>
 )
 }
