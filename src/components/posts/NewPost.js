@@ -105,7 +105,7 @@ export const NewPost = ({token}) => {
         </fieldset>
         <button type="submit"
             onClick={handleSubmit}
-            className="btn btn-primary">
+            className="btn btn-primary">Submit Post
         </button>
         </form>
     </section>

@@ -5,38 +5,38 @@ export const EditPost = ({token}) => {
 
 
 
-    const [post, setPost] = useState({
-        title: "",
-        image_url : "",
-        content: ""
-    })
+    // const [post, setPost] = useState({
+    //     title: "",
+    //     image_url : "",
+    //     content: ""
+    // })
 
-    const handleInputChange = (event) => {
-        const copyOfPost = { ...post };
-        copyOfPost[event.target.id] = event.target.value;
-        setPost(copyOfPost);
-    };
-    const navigate = useNavigate()
-    const { postId } = useParams();
+    // const handleInputChange = (event) => {
+    //     const copyOfPost = { ...post };
+    //     copyOfPost[event.target.id] = event.target.value;
+    //     setPost(copyOfPost);
+    // };
+    // const navigate = useNavigate()
+    // const { postId } = useParams();
 
-    const handleSubmit = (event) => {
-        console.log(post)
+    // const handleSubmit = (event) => {
+    //     console.log(post)
 
-        event.preventDefault();
+    //     event.preventDefault();
 
 
-        return fetch(`http://localhost:8088/posts/${post.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(post),
-            })
-            .then((res) => res.json())
-            .then(() => {
-                navigate(`/post/${post.id}`)
-            });
-    }
+    //     return fetch(`http://localhost:8088/posts/${post.id}`, {
+    //         method: "PUT",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(post),
+    //         })
+    //         .then((res) => res.json())
+    //         .then(() => {
+    //             navigate(`/post/${post.id}`)
+    //         });
+    // }
 
 
     return (
@@ -48,8 +48,8 @@ export const EditPost = ({token}) => {
                 <label htmlFor="title">Title: </label>
                 <input type="text" name="title" id="title" required autoFocus className="form-control"
                     placeholder="Title of Post"
-                    defaultValue={postId.title}
-                    onChange={handleInputChange}
+                    // defaultValue={postId.title}
+                    // onChange={handleInputChange}
                 />
                 </div>
             </fieldset>
@@ -57,8 +57,8 @@ export const EditPost = ({token}) => {
                 <div className="form-group">
                 <label htmlFor="content">Post Content: </label>
                 <textarea type="textbox" id="content" rows="5" cols="30" name="content" required autoFocus className="form-control" placeholder="Post Content" 
-                defaultValue={postId.content}
-                onChange={handleInputChange} 
+                // defaultValue={postId.content}
+                // onChange={handleInputChange} 
                 />
                 </div>
             </fieldset>
@@ -71,13 +71,14 @@ export const EditPost = ({token}) => {
                     type="text"
                     className="form-control"
                     placeholder="Image URL here"
-                    onChange={handleInputChange}
+                    // onChange={handleInputChange}
                     />
                 </div>
             </fieldset>
             <button type="submit"
-                onClick={handleSubmit}
+                // onClick={handleSubmit}
                 className="btn btn-primary">
+            Submit Edit
             </button>
             </form>
         </section>
