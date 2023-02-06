@@ -2,20 +2,20 @@ import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
 export const NewComment = ({ token }) => {
+    const navigate = useNavigate()
+    const postId = useParams()
     const [comment, setComment] = useState({
-        post_id: 0,
-        body: "",
-        author_id: "",
+        post_id: parseInt(postId.postId),
+        author_id: parseInt(token),
         content: ""
     })
 
-    const navigate = useNavigate()
-    const postId = useParams()
+    
 
-    const HandleInputChange = (event) => {
+    const handleInputChange = (event) => {
         const copyOfComment = { ...comment }
         copyOfComment[event.target.id] = event.target.value
-        setPost(copyOfComment)
+        setComment(copyOfComment)
     }
 
     const handleSubmit = (event) => {
@@ -26,9 +26,48 @@ export const NewComment = ({ token }) => {
             alert("Cannot be empty.")
         } else {
             let body = {
-                post
+                post_id: parseInt(postId.postId),
+                author_id: parseInt(token),
+                content: comment.content
             }
+
+            fetch(`http://localhost:8088/comments`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(body),
+            })
+            .then((res) => res.json())
         }
     }
 
+return (
+    <section>
+        <form className="commentForm">
+        <h2>Add a Comment</h2>
+        <fieldset>
+            <div className="form-group">
+            <label htmlFor="comment">Comment: </label>
+            <input type="text" name="comment" id="comment" required autoFocus className="form-control"
+                placeholder="What are your thought?"
+                value={comment.content}
+                onChange={
+                    (evt) => {
+                        const copy = {...comment}
+                        copy.content = evt.target.value
+                        setComment(copy)
+                    }
+                }
+            />
+            </div>
+        </fieldset>
+        <button type="submit"
+            onClick={handleSubmit}
+            className="btn btn-primary">
+                Submit Comment
+        </button>
+        </form>
+    </section>
+    )
 }

@@ -10,6 +10,7 @@ import { PostDetails } from "../components/posts/PostDetails"
 import { NewComment } from "../components/comments/CommentForm"
 import { CategoryList } from "../components/categories/CategoryList"
 import { CommentList } from "../components/comments/CommentList"
+import { CommentListContainer } from "../components/comments/CommentListContainer"
 
 export const ApplicationViews = ({ token, setToken }) => {
   return <>
@@ -33,8 +34,7 @@ export const ApplicationViews = ({ token, setToken }) => {
             
         <Route path="/newPost" element={< NewPost token={token} />} />
         <Route path="/" element={<PostList />} />
-        <Route path="/posts/:postId/comments" element={< CommentList />} />
-        <Route path=":postId/comments/newComment" element={ < NewComment token={token}/> } />
+        <Route path="/posts/:postId/comments" element={< CommentListContainer token={token} />} />
       </Route>
       
     </Routes>

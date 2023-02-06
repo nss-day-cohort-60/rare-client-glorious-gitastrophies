@@ -10,7 +10,7 @@ export const CommentList = ({ token }) => {
 useEffect(
     () => {
         getCommentsByPostId(postId).then(commentData => setComments(commentData))
-    }, [postId])
+    }, [comments])
 
     return (<>
     <h2 className="comment__header">Comments</h2>
@@ -21,6 +21,7 @@ useEffect(
                     <div className="comment__post">{comment?.content}</div>
                 </section>
             })
+
         }
     </>
 
