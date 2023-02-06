@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react"
-import { useNavigate ,useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 
 export const NewPost = ({token}) => {
 
     const [post, setPost] = useState({
+        user_id: "",
         title: "",
+        category_id: 0,
+        publication_date: 0,
         image_url : "",
-        content: ""
+        content: "",
+        approved: 0
     })
 
 
@@ -15,7 +19,7 @@ export const NewPost = ({token}) => {
         const copyOfPost = { ...post };
         copyOfPost[event.target.id] = event.target.value;
         setPost(copyOfPost);
-      };
+    };
     const navigate = useNavigate()
 
 
@@ -33,6 +37,7 @@ export const NewPost = ({token}) => {
             var body = {
                 user_id: token,
                 title: post.title,
+                category_id: post.category_id,
                 publication_date: new Date(),
                 image_url: post.image_url,
                 content: post.content,
@@ -55,7 +60,7 @@ export const NewPost = ({token}) => {
 
   return (
     <section>
-         <form className="postForm">
+        <form className="postForm">
         <h2>Create a Post</h2>
         <fieldset>
             <div className="form-group">
@@ -63,6 +68,16 @@ export const NewPost = ({token}) => {
             <input type="text" name="title" id="title" required autoFocus className="form-control"
                 placeholder="Title of Post"
                 defaultValue={post.title}
+                onChange={handleInputChange}
+            />
+            </div>
+        </fieldset>
+        <fieldset>
+            <div className="form-group">
+            <label htmlFor="category_id">Category: </label>
+            <input type="number" name="category_id" id="category_id" required autoFocus className="form-control"
+                placeholder="Category"
+                defaultValue={post.category_id}
                 onChange={handleInputChange}
             />
             </div>
