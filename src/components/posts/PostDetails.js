@@ -1,11 +1,21 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getSinglePost } from "../../managers/PostManger";
+import { HumanDate } from "../utils/HumanDate";
 
-export const PostDetails = ({ token}) => {
+
+
+export const PostDetails = ({ token }) => {
   const [post, setPost] = useState({})
+  const [user, setUser] = useState({})
+  const { userId } = useParams()
 
+  const navigate = useNavigate()
   const { postId } = useParams()
+
+
+
+
 
   useEffect(() => {
     getSinglePost(postId).then((data) => setPost(data[0]));
@@ -19,6 +29,18 @@ export const PostDetails = ({ token}) => {
     <div className="post__publication_date">Date published: {post?.publication_date}</div>
     <h2 className="post__content"> {post?.content}</h2>
     <Link className="post__comments" to={`/posts/${postId}/comments`}>Comments</Link>
+    
+    {
+      parseInt(token) === post.user_id
+      ?
+      <button onClick={() => {
+        navigate(`/posts/editPost/${postId}`)
+      }}>Edit</button>
+      :
+      ""
+    }
+    
+    
     </section>
 )
 }
