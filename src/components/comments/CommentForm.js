@@ -1,11 +1,14 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { getCommentsByPostId } from "../../managers/CommentManager"
 
-export const NewComment = ({ token }) => {
+
+export const NewComment = ({ token, setComments }) => {
+    // const [comments, setComments] = useState([])
     const navigate = useNavigate()
-    const postId = useParams()
+    const { postId } = useParams()
     const [comment, setComment] = useState({
-        post_id: parseInt(postId.postId),
+        post_id: parseInt(postId),
         author_id: parseInt(token),
         content: ""
     })
@@ -20,13 +23,14 @@ export const NewComment = ({ token }) => {
 
     const handleSubmit = (event) => {
 
+
         event.preventDefault();
 
         if (comment.content === "") {
             alert("Cannot be empty.")
         } else {
             let body = {
-                post_id: parseInt(postId.postId),
+                post_id: parseInt(postId),
                 author_id: parseInt(token),
                 content: comment.content
             }
@@ -38,9 +42,10 @@ export const NewComment = ({ token }) => {
                 },
                 body: JSON.stringify(body),
             })
-            .then((res) => res.json())
+            .then((res) => res.json()).then(() => getCommentsByPostId(postId ).then(commentData => setComments(commentData)))
         }
     }
+    
 
 return (
     <section>

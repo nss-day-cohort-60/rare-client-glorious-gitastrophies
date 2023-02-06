@@ -4,9 +4,9 @@ import { CommentList } from "./CommentList";
 
 
 export const CommentListContainer = ({ token }) => {
-
+    const [comments, setComments] = useState([])
     return <>
-        <CommentList  token={token} />
-        <NewComment token={token} />
+        <CommentList  token={ token } comments={comments} setComments={setComments} />
+        <NewComment token={ token } setComments={ setComments } />
     </>
 }
