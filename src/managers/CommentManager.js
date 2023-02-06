@@ -13,7 +13,7 @@ export const addComment = (post) => {
     })
 }
 
-export const deletePosts = (id) => {
-    return fetch(`http://localhost:8088/posts/${id}`, 
+export const deleteComment = (id) => {
+    return fetch(`http://localhost:8088/comments/${id}`, 
     {method: "DELETE"})
 } 
