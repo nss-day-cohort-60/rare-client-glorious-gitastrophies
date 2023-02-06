@@ -5,60 +5,76 @@ export const EditPost = ({token}) => {
 
 
 
-    // const [post, setPost] = useState({
-    //     title: "",
-    //     image_url : "",
-    //     content: ""
-    // })
+    const [post, setPost] = useState({
+        title: "",
+        image_url : "",
+        content: ""
+    })
+    const navigate = useNavigate()
+    const { postId } = useParams()
 
-    // const handleInputChange = (event) => {
-    //     const copyOfPost = { ...post };
-    //     copyOfPost[event.target.id] = event.target.value;
-    //     setPost(copyOfPost);
-    // };
-    // const navigate = useNavigate()
-    // const { postId } = useParams();
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/posts/${postId}`)
+                .then(response => response.json())
+                .then((data) => {
+                    setPost(data[0])
+                })
 
-    // const handleSubmit = (event) => {
-    //     console.log(post)
+        },
+        [] 
+    )
 
-    //     event.preventDefault();
+    const handleInputChange = (event) => {
+        const copyOfPost = { ...post };
+        copyOfPost[event.target.id] = event.target.value;
+        setPost(copyOfPost);
+    };
+
+    
+
+    const handleSubmit = (event) => {
+        console.log(post)
+
+        event.preventDefault();
 
 
-    //     return fetch(`http://localhost:8088/posts/${post.id}`, {
-    //         method: "PUT",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify(post),
-    //         })
-    //         .then((res) => res.json())
-    //         .then(() => {
-    //             navigate(`/post/${post.id}`)
-    //         });
-    // }
+        fetch(`http://localhost:8088/posts/${postId}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(post),
+            })
+            .then((res) => {
+                res.json()
+            })
+            .then(() => {
+                navigate(`/posts/${postId}`)
+            });
+    }
 
 
     return (
         <section>
             <form className="postForm">
-            <h2>Create a Post</h2>
+            <h2>Edit your existing Post</h2>
             <fieldset>
                 <div className="form-group">
                 <label htmlFor="title">Title: </label>
                 <input type="text" name="title" id="title" required autoFocus className="form-control"
-                    placeholder="Title of Post"
-                    // defaultValue={postId.title}
-                    // onChange={handleInputChange}
+                    
+                    defaultValue={post.title}
+                    onChange={handleInputChange}
                 />
                 </div>
             </fieldset>
             <fieldset>
                 <div className="form-group">
                 <label htmlFor="content">Post Content: </label>
-                <textarea type="textbox" id="content" rows="5" cols="30" name="content" required autoFocus className="form-control" placeholder="Post Content" 
-                // defaultValue={postId.content}
-                // onChange={handleInputChange} 
+                <textarea type="textbox" id="content" rows="5" cols="30" name="content" required autoFocus className="form-control"
+                defaultValue={post.content}
+                onChange={handleInputChange} 
                 />
                 </div>
             </fieldset>
@@ -70,13 +86,13 @@ export const EditPost = ({token}) => {
                     id="image_url"
                     type="text"
                     className="form-control"
-                    placeholder="Image URL here"
-                    // onChange={handleInputChange}
+                    defaultValue={post.image_url}
+                    onChange={handleInputChange}
                     />
                 </div>
             </fieldset>
             <button type="submit"
-                // onClick={handleSubmit}
+                onClick={handleSubmit}
                 className="btn btn-primary">
             Submit Edit
             </button>

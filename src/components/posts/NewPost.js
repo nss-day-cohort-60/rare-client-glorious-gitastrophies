@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom"
 export const NewPost = ({token}) => {
 
     const [post, setPost] = useState({
-        user_id: "",
         title: "",
         category_id: 0,
         publication_date: 0,
@@ -14,6 +13,7 @@ export const NewPost = ({token}) => {
         approved: 0
     })
 
+    
 
     const handleInputChange = (event) => {
         const copyOfPost = { ...post };
