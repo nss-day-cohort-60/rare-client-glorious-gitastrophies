@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
+import { getCategories } from "../../managers/CategoriesManager"
 
 
 export const NewPost = ({token}) => {
 
+    const navigate = useNavigate()
+    const [categoryDropdown, setCategoryDropDown] = useState([])
+
     const [post, setPost] = useState({
-        user_id: "",
         title: "",
         category_id: 0,
         publication_date: 0,
@@ -14,13 +17,15 @@ export const NewPost = ({token}) => {
         approved: 0
     })
 
+    useEffect(() => {
+        getCategories().then((data) => setCategoryDropDown(data))
+    }, [])   
 
     const handleInputChange = (event) => {
         const copyOfPost = { ...post };
         copyOfPost[event.target.id] = event.target.value;
         setPost(copyOfPost);
     };
-    const navigate = useNavigate()
 
 
 
@@ -72,16 +77,14 @@ export const NewPost = ({token}) => {
             />
             </div>
         </fieldset>
-        <fieldset>
-            <div className="form-group">
-            <label htmlFor="category_id">Category: </label>
-            <input type="number" name="category_id" id="category_id" required autoFocus className="form-control"
-                placeholder="Category"
-                defaultValue={post.category_id}
-                onChange={handleInputChange}
-            />
-            </div>
-        </fieldset>
+        <select name="category_id" id="category_id" onChange={(handleInputChange)} >
+                <option value="0"  className="form-control">Select Category</option>
+                {categoryDropdown.map(category => (
+                    <option key={`category--${category.id}`} value={category.id}>
+                        {category.label} 
+                    </option>
+                ))}
+        </select>
         <fieldset>
             <div className="form-group">
             <label htmlFor="content">Post Content: </label>
@@ -105,7 +108,7 @@ export const NewPost = ({token}) => {
         </fieldset>
         <button type="submit"
             onClick={handleSubmit}
-            className="btn btn-primary">
+            className="btn btn-primary">Submit Post
         </button>
         </form>
     </section>
