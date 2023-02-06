@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getSinglePost } from "../../managers/PostManger";
 import { HumanDate } from "../utils/HumanDate";
+import { EditPost } from "../components/posts/EditPost"
 
 
 export const PostDetails = ({ token}) => {
@@ -9,7 +10,7 @@ export const PostDetails = ({ token}) => {
   const [user, setUser] = useState({})
     const { userId } = useParams()
 
-
+  const navigate = useNavigate()
   const { postId } = useParams()
 
   useEffect(() => {
@@ -23,6 +24,9 @@ export const PostDetails = ({ token}) => {
     <div className="post__username">Username: <Link className="post__username-link" to={`/users/${user.id}`}> {post?.user?.username}</Link> </div> 
     <div className="post__publication_date">Date published: {post?.publication_date}</div>
     <div className="post__content">Post: {post?.content}</div>
+    <button onClick={() => {
+        navigate(`edit/post/${postId}`)
+      }}>Edit</button>
     </section>
 )
 }

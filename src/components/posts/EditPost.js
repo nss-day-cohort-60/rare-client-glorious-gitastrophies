@@ -1,4 +1,7 @@
-export const editPost = () => {
+import { useState, useEffect } from "react"
+import { useNavigate ,useParams } from "react-router-dom"
+
+export const EditPost = ({token}) => {
 
 
 
@@ -14,25 +17,26 @@ export const editPost = () => {
         setPost(copyOfPost);
     };
     const navigate = useNavigate()
-
+    const { postId } = useParams();
 
     const handleSubmit = (event) => {
         console.log(post)
 
         event.preventDefault();
 
-    return fetch("http://localhost:8088/posts", {
+
+        return fetch(`http://localhost:8088/posts/${post.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(body),
+            body: JSON.stringify(post),
             })
             .then((res) => res.json())
             .then(() => {
-                navigate('/')
+                navigate(`/post/${post.id}`)
             });
-        }
+    }
 
 
     return (
@@ -44,7 +48,7 @@ export const editPost = () => {
                 <label htmlFor="title">Title: </label>
                 <input type="text" name="title" id="title" required autoFocus className="form-control"
                     placeholder="Title of Post"
-                    defaultValue={post.title}
+                    defaultValue={postId.title}
                     onChange={handleInputChange}
                 />
                 </div>
@@ -53,6 +57,7 @@ export const editPost = () => {
                 <div className="form-group">
                 <label htmlFor="content">Post Content: </label>
                 <textarea type="textbox" id="content" rows="5" cols="30" name="content" required autoFocus className="form-control" placeholder="Post Content" 
+                defaultValue={postId.content}
                 onChange={handleInputChange} 
                 />
                 </div>
