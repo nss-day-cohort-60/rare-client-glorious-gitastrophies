@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom"
 export const NewPost = ({token}) => {
 
     const [post, setPost] = useState({
-        user_id: "",
         title: "",
         category_id: 0,
         publication_date: 0,
@@ -14,6 +13,7 @@ export const NewPost = ({token}) => {
         approved: 0
     })
 
+    
 
     const handleInputChange = (event) => {
         const copyOfPost = { ...post };
@@ -105,7 +105,7 @@ export const NewPost = ({token}) => {
         </fieldset>
         <button type="submit"
             onClick={handleSubmit}
-            className="btn btn-primary">
+            className="btn btn-primary">Submit Post
         </button>
         </form>
     </section>
