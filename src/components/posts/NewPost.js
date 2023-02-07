@@ -30,7 +30,6 @@ export const NewPost = ({token}) => {
 
 
     const handleSubmit = (event) => {
-        console.log(post)
 
         event.preventDefault();
 
@@ -48,7 +47,7 @@ export const NewPost = ({token}) => {
                 content: post.content,
                 approved : 1
             }
-            console.log(body)
+
             fetch("http://localhost:8088/posts", {
                 method: "POST",
                 headers: {
