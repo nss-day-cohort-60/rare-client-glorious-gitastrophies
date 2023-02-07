@@ -11,8 +11,6 @@ const handleClick = (commentId) => {
     deleteComment(commentId).then(() => getCommentsByPostId(postId).then(commentData => setComments(commentData)))
 }
 
-
-
 useEffect(
     () => {
         getCommentsByPostId(postId).then(commentData => setComments(commentData))

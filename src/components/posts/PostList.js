@@ -1,25 +1,49 @@
 import { useEffect, useState } from "react"
 import { Post } from "./Post";
 import { getPosts } from "../../managers/PostManger"
-
 import "./Post.css"
 
-export const PostList = () => {
-    const [posts, setPosts] = useState([]);
+export const PostList = ( {token, authorSelection, searchTermState }) => {
+    const [posts, setPosts] = useState([])
+    const [filteredPosts, setFilteredPosts] = useState([])
 
 
     useEffect(
         () => {
             getPosts().then(postData => setPosts(postData))
+            setFilteredPosts(posts)
         }, [])
+
+
+    useEffect(
+        () => {
+            if (authorSelection === 0) {
+                setFilteredPosts(posts) }
+            else {
+                const filteredCopy = posts.filter(post => post.user_id === parseInt(authorSelection))
+                setFilteredPosts(filteredCopy)
+            }
+        },
+        [posts, authorSelection]
+        )
+
+        useEffect(
+            () => {
+                const searchedPosts = posts.filter(post => {
+                    return post?.title?.toLowerCase().startsWith(searchTermState.toLowerCase())
+                })
+                setFilteredPosts(searchedPosts)
+            },
+            [ posts, searchTermState ]
+        )
 
     return (
         <div style={{ margin: "0rem 3rem" }}>
-        <h1>Post</h1>
+        <h1>Posts</h1>
         <section>
             {
-                posts.map(post => {
-                    return <Post post={post} key={`post--${post.id}`} />
+                filteredPosts.map((post) => {
+                    return <Post post={post} key={`post--${post.id}`} token={token} />
                 })
             }
         </section>
