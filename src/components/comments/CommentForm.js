@@ -1,10 +1,17 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import { getCommentsByPostId } from "../../managers/CommentManager"
+import * as React from 'react'
+import Card from '@mui/material/Card'
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+import Stack from '@mui/material/Stack'
+import "./Comment.css"
 
 
 export const NewComment = ({ token, setComments }) => {
-    // const [comments, setComments] = useState([])
+
     const navigate = useNavigate()
     const { postId } = useParams()
     const [comment, setComment] = useState({
@@ -48,14 +55,11 @@ export const NewComment = ({ token, setComments }) => {
     
 
 return (
-    <section>
-        <form className="commentForm">
-        <h2>Add a Comment</h2>
-        <fieldset>
-            <div className="form-group">
-            <label htmlFor="comment">Comment: </label>
-            <input type="text" name="comment" id="comment" required autoFocus className="form-control"
-                placeholder="What are your thought?"
+    <Card sx={{ maxWidth: 300, padding: 5}}>
+        <Stack spacing={2}>
+        <Typography variant="h6" color="text.primary">Add a Comment: </Typography>
+            <TextField variant="outlined" type="text" name="comment" id="comment" required autoFocus className="form-control"
+                placeholder="What are your thoughts?"
                 value={comment.content}
                 onChange={
                     (evt) => {
@@ -65,14 +69,12 @@ return (
                     }
                 }
             />
-            </div>
-        </fieldset>
-        <button type="submit"
+        <Button variant="contained" type="submit"
             onClick={handleSubmit}
             className="btn btn-primary">
                 Submit Comment
-        </button>
-        </form>
-    </section>
+        </Button >
+        </Stack>
+    </Card>
     )
 }

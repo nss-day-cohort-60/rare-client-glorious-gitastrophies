@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { Post } from "./Post";
 import { getPosts } from "../../managers/PostManger"
+import * as React from 'react'
 import "./Post.css"
 
 export const PostList = ( {token, authorSelection, searchTermState }) => {
@@ -38,16 +39,14 @@ export const PostList = ( {token, authorSelection, searchTermState }) => {
         )
 
     return (
-        <div style={{ margin: "0rem 3rem" }}>
-        <h1>Posts</h1>
-        <section>
+    <>
+        <article className="post-list-container">
             {
                 filteredPosts.map((post) => {
                     return <Post post={post} key={`post--${post.id}`} token={token} />
                 })
             }
-        </section>
-        </div>
-
-    );
-};
+            </article>
+    </>
+    )
+}

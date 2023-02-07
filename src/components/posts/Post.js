@@ -1,18 +1,26 @@
-import { Link } from "react-router-dom";
+import * as React from 'react'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import { CardActions } from '@mui/material'
+import CardMedia from '@mui/material/CardMedia'
+import Stack from '@mui/material/Stack'
 import "./Post.css"
+import Link from '@mui/material/Link'
 
 export const Post = ({ post } ) => (
-
-    <article key ={`post--${post.id}`} className="card user" style={{width: `18rem`}}>
-        <section className="card-body">
-            <Link className="card-link"
-            to={`/posts/${post.id}`}>
-                <h1 className="card-title">{post.title}</h1></Link>
-                <img className="image" src={post.image_url} />
-            <div> Category: {post?.category?.label}</div>
-            <h2> {post?.content} </h2>
-            <div> Author: {post?.user?.first_name} {post?.user?.last_name}</div> 
-        </section>
-    </article>
+    <Card key ={`post--${post.id}`} className="post" sx={{ maxWidth: 500 }}>
+            <CardContent>
+                <Stack spacing={2}>
+                    <Link className="card-link"
+                    href={`/posts/${post.id}`}>
+                        <Typography variant="h6">{post.title}</Typography></Link>
+                        <CardMedia sx={{ height: 240 }} image={post.image_url} className="image" />
+                    <Typography> {post?.content} </Typography>
+                    <Typography paragraph color="text.primary"> Author: {post?.user?.first_name} {post?.user?.last_name}</Typography> 
+                    <Typography paragraph color="text.secondary"> Category: {post?.category?.label}</Typography>
+                </Stack>
+            </CardContent>
+    </Card>
 )
 
