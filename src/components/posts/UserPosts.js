@@ -14,8 +14,8 @@ export const UserPosts = ({ token }) => {
         }, [])
 
         return (
+            <article className="post-list-container">
             <div style={{ margin: "0rem 3rem" }}>
-            <h1>Post</h1>
             <section>
                 {
                     posts.map(post => {
@@ -24,6 +24,6 @@ export const UserPosts = ({ token }) => {
                 }
             </section>
             </div>
-    
+            </article>  
         );
 }

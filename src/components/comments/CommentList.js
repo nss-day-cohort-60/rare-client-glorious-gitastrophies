@@ -1,43 +1,60 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { getCommentsByPostId } from "../../managers/CommentManager";
-import { deleteComment } from "../../managers/CommentManager";
+import { useEffect } from "react"
+import { useParams } from "react-router-dom"
+import { getCommentsByPostId } from "../../managers/CommentManager"
+import { deleteComment } from "../../managers/CommentManager"
+import { Link } from "react-router-dom"
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import * as React from 'react'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import { CardActions } from '@mui/material'
+import Stack from '@mui/material/Stack'
+import "./Comment.css"
+
 
 export const CommentList = ({ token, comments, setComments }) => {
-    const navigate = useNavigate()
     const { postId } = useParams()
 
-const handleClick = (commentId) => {
-    deleteComment(commentId).then(() => getCommentsByPostId(postId).then(commentData => setComments(commentData)))
-}
+    const handleClick = (commentId) => {
+        deleteComment(commentId).then(() => getCommentsByPostId(postId).then(commentData => setComments(commentData)))
+    }
 
-useEffect(
-    () => {
-        getCommentsByPostId(postId).then(commentData => setComments(commentData))
-    }, [])
+    useEffect(
+        () => {
+            getCommentsByPostId(postId).then(commentData => setComments(commentData))
+        }, [])
 
-    return (
+    return  <article className="comment-list-container">
     <>
-    <h2 className="comment__header">Comments</h2>
-        {
-            comments.map(comment => {
-                return <section className="comment">
-                    <div className="comment__username">{comment?.user?.username}</div>
-                    <div className="comment__post">{comment?.content}</div>
-                        {
-                            comment.author_id === parseInt(token)
-                            ?
-                            <button className="delete__button" onClick={
-                                () =>
-                                handleClick(comment.id)}>Delete Comment</button>
-                            :
-                            ""
-                        }
-                </section>
-            })
+        <Stack spacing={2}>
+            <Typography variant="h5" color="text.primary">Comments</Typography>
+                {
+                    comments.map(comment => {
+                        return <Card className="comment" sx={{ maxWidth: 300 }}  key={`comments--${comment.id}`}>
+                            <CardContent>
 
-        }
+                            <Typography variant="h6" className="comment__username">
+                                    <Link className="card-link" to={`/users/${comment?.author_id}`}> {comment?.user?.username}</Link>
+                                </Typography>
+
+                            <Typography paragraph color="text.secondary" className="comment__content"> {comment.content} </Typography>
+                                {
+                                    comment.author_id === parseInt(token)
+                                    ?
+                                    <CardActions>
+                                        <DeleteForeverIcon className="delete__DeleteForeverIcon" onClick={
+                                        () =>
+                                        handleClick(comment.id)}>Delete Comment</DeleteForeverIcon>
+                                    </CardActions>
+                                    :
+                                    ""
+                                }
+                            </CardContent>
+                        </Card>
+                    })
+                }
+        </Stack>
     </>
-
-    )
+    </article>
 }

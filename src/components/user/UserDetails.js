@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { getUsersById } from "../../managers/UsersManager"
+import * as React from 'react'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Typography from '@mui/material/Typography'
+import Stack from '@mui/material/Stack'
 import "./User.css"
 
 export const UserDetails = ({token}) => {
@@ -12,12 +17,16 @@ export const UserDetails = ({token}) => {
     }, [userId])
 
     return (
-        <section className="user">
-        <h3 className="user__username">{user.username}</h3>
-        <div className="user__first_name">Full name: {user.first_name} {user.last_name}</div>
-        <div className="user__bio">Bio: {user.bio}</div>
-        <div className="user__created_on">Joined on: {user.created_on}</div>
-        </section>
+        <Card sx={{ maxWidth: 500, padding: 5}}>
+            <CardContent>
+            <Stack spacing={2}>
+                <Typography>Username: {user.username}</Typography>
+                <Typography>Full name: {user.first_name} {user.last_name}</Typography>
+                <Typography>Bio: {user.bio}</Typography>
+                <Typography>Joined on: {user.created_on}</Typography>
+                </Stack>
+            </CardContent>
+        </Card>
     )
 }
 

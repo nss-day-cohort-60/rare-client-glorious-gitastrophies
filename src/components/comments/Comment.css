@@ -1,0 +1,27 @@
+.comment {
+    margin: 0.5rem;
+    padding: .5rem;
+}
+
+
+.comment-list-container {
+    color: rgb(255, 255, 255);
+    align-content: center;
+    background-color: white;
+    margin: 50px;
+}
+
+.commentForm {
+    align-content: center;
+    margin: 50px;
+    text-align: center;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
