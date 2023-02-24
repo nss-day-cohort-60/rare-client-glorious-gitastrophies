@@ -17,8 +17,8 @@ export const Post = ({ post } ) => (
                         <Typography variant="h6">{post.title}</Typography></Link>
                         <CardMedia sx={{ height: 240 }} image={post.image_url} className="image" />
                     <Typography> {post?.content} </Typography>
-                    <Typography paragraph color="text.primary"> Author: {post?.author?.first_name} {post?.user?.last_name}</Typography> 
-                    <Typography paragraph color="text.secondary"> Category: {post?.category?.label}</Typography>
+                    <Typography paragraph color="text.primary"> Author: {post.author.full_name}</Typography> 
+                    <Typography paragraph color="text.secondary"> Category: {post.category.label}</Typography>
                 </Stack>
             </CardContent>
     </Card>
