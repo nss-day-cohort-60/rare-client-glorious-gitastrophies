@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate, Link } from "react-router-dom"
-import { getSinglePost } from "../../managers/PostManger"
+import { deletePosts, getSinglePost } from "../../managers/PostManger"
 import * as React from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -33,23 +33,21 @@ export const PostDetails = ({ token }) => {
           <Typography className="post__content"> {post?.content}</Typography>
           <Link className="post__comments" to={`/posts/${postId}/comments`}>Comments</Link>
           
-          {/* {
-            parseInt(token) === post.user_id
+          {
+            post.is_author
             ?
-            <Button className="button" variant="contained"  onClick={() => {
-              navigate(`/posts/editPost/${postId}`)
-            }}>Edit</Button>
+            <>
+              <Button className="button" variant="contained"  onClick={() => {
+                navigate(`/posts/editPost/${post.id}`)
+              }}>Edit</Button>
+              <Button className="button" variant="contained" onClick={()=>{
+                deletePosts(post.id)
+                .then(()=>navigate('/'))
+              }}>Delete</Button>
+            </>
             :
             ""
           }
-          
-          {
-            parseInt(token) === post.user_id
-            ?
-            <Button className="button" variant="contained">Delete</Button>
-            :
-            ""
-          } */}
           
         </Stack>
       </CardContent>
