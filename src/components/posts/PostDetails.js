@@ -19,7 +19,7 @@ export const PostDetails = ({ token }) => {
   const { postId } = useParams()
 
   useEffect(() => {
-    getSinglePost(postId).then((data) => setPost(data[0]));
+    getSinglePost(postId).then((data) => setPost(data));
   }, [postId])
 
   return (
@@ -27,13 +27,13 @@ export const PostDetails = ({ token }) => {
       <CardContent>
         <Stack spacing={2}>
           <Typography className="post__title">Title: {post?.title}</Typography>
-          <Typography>Author: <Link className="post__authors_name" to={`/users/${token}`}> {post?.user?.first_name} {post?.user?.last_name} </Link></Typography>
+          <Typography>Author: <Link className="post__authors_name" to={`/users/${token}`}> {post?.author?.full_name} </Link></Typography>
           <Typography className="post__category_id">Category: {post?.category?.label} </Typography> 
           <Typography className="post__publication_date">Date published: {post?.publication_date}</Typography>
           <Typography className="post__content"> {post?.content}</Typography>
           <Link className="post__comments" to={`/posts/${postId}/comments`}>Comments</Link>
           
-          {
+          {/* {
             parseInt(token) === post.user_id
             ?
             <Button className="button" variant="contained"  onClick={() => {
@@ -49,7 +49,7 @@ export const PostDetails = ({ token }) => {
             <Button className="button" variant="contained">Delete</Button>
             :
             ""
-          }
+          } */}
           
         </Stack>
       </CardContent>
