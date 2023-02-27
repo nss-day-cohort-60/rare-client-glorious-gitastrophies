@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getCommentsByPostId } from "../../managers/CommentManager"
+// import { getCommentsByPostId } from "../../managers/CommentManager"
 import * as React from 'react'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
@@ -10,14 +10,12 @@ import Stack from '@mui/material/Stack'
 import "./Comment.css"
 
 
-export const NewComment = ({ token, setComments }) => {
+export const NewComment = ({ postId }) => {
 
     const navigate = useNavigate()
-    const { postId } = useParams()
+    
     const [comment, setComment] = useState({
-        post_id: parseInt(postId),
-        author_id: parseInt(token),
-        content: ""
+        body: ""
     })
 
     
@@ -28,30 +26,30 @@ export const NewComment = ({ token, setComments }) => {
         setComment(copyOfComment)
     }
 
-    const handleSubmit = (event) => {
+    // const handleSubmit = (event) => {
 
 
-        event.preventDefault();
+    //     event.preventDefault();
 
-        if (comment.content === "") {
-            alert("Cannot be empty.")
-        } else {
-            let body = {
-                post_id: parseInt(postId),
-                author_id: parseInt(token),
-                content: comment.content
-            }
+    //     if (comment.content === "") {
+    //         alert("Cannot be empty.")
+    //     } else {
+    //         let body = {
+    //             post_id: parseInt(postId),
+    //             author_id: parseInt(token),
+    //             content: comment.content
+    //         }
 
-            fetch(`http://localhost:8088/comments`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body),
-            })
-            .then((res) => res.json()).then(() => getCommentsByPostId(postId ).then(commentData => setComments(commentData)))
-        }
-    }
+    //         fetch(`http://localhost:8088/comments`, {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             body: JSON.stringify(body),
+    //         })
+    //         .then((res) => res.json()).then(() => getCommentsByPostId(postId ).then(commentData => setComments(commentData)))
+    //     }
+    // }
     
 
 return (
@@ -70,7 +68,7 @@ return (
                 }
             />
         <Button variant="contained" type="submit"
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
             className="btn btn-primary">
                 Submit Comment
         </Button >
