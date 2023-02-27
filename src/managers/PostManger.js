@@ -24,6 +24,15 @@ export const getPostByUser = (id) => {
     .then((res) => res.json())
 }
 
+export const getPostByLoggedInUser = () => {
+    return fetch(`http://localhost:8000/posts/bananaHammock`, {
+        headers: {
+            "Authorization" : `Token ${localStorage.getItem('auth_token')}`
+        }
+    })
+    .then((res) => res.json())
+}
+
 export const addPost = (post) => {
     const newPost = {
         title: post.title,
