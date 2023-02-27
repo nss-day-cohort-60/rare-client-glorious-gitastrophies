@@ -13,7 +13,7 @@ import "./Post.css"
 import { addPost } from "../../managers/PostManger"
 
 
-export const NewPost = ({token}) => {
+export const NewPost = () => {
 
     const navigate = useNavigate()
     const [categoryDropdown, setCategoryDropDown] = useState([])
