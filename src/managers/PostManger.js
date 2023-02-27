@@ -25,13 +25,20 @@ export const getPostByUser = (id) => {
 }
 
 export const addPost = (post) => {
+    const newPost = {
+        title: post.title,
+        category: parseInt(post.category_id),
+        image_url: post.image_url,
+        content: post.content,
+        approved : 1
+    }
     return fetch("http://localhost:8000/posts", {
         method: "POST",
         headers: {
             "Authorization" : `Token ${localStorage.getItem('auth_token')}`,
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(post)
+        body: JSON.stringify(newPost)
     })
 }
 export const deletePosts = (id) => {

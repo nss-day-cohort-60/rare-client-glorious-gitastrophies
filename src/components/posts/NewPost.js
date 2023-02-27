@@ -10,9 +10,10 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import TextareaAutosize from '@mui/base/TextareaAutosize'
 import "./Post.css"
+import { addPost } from "../../managers/PostManger"
 
 
-export const NewPost = ({token}) => {
+export const NewPost = () => {
 
     const navigate = useNavigate()
     const [categoryDropdown, setCategoryDropDown] = useState([])
@@ -20,10 +21,8 @@ export const NewPost = ({token}) => {
     const [post, setPost] = useState({
         title: "",
         category_id: 0,
-        publication_date: 0,
         image_url : "",
-        content: "",
-        approved: 0
+        content: ""
     })
 
     useEffect(() => {
@@ -47,27 +46,10 @@ export const NewPost = ({token}) => {
         } else if (post.content === "") {
             alert("you have no body")
         } else { 
-            var body = {
-                user_id: token,
-                title: post.title,
-                category_id: post.category_id,
-                publication_date: new Date(),
-                image_url: post.image_url,
-                content: post.content,
-                approved : 1
-            }
-
-            fetch("http://localhost:8088/posts", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body),
-                })
-                .then((res) => res.json())
-                .then(() => {
-                    navigate('/')
-                });
+            addPost(post)
+            .then(() => {
+                navigate('/')
+            });
         }
     }
 
