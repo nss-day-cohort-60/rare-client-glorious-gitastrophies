@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react"
-import { getUsers } from "../../managers/UsersManager"
+import { getAuthors } from "../../managers/AuthorsManager";
 import "./Post.css"
 
 export const FilterAuthor = ({ setAuthorSelection }) => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        getUsers().then((userData) => setUsers(userData))
+        getAuthors().then((userData) => setUsers(userData))
     }, [])
 
     return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { getUsersById } from "../../managers/UsersManager"
+import { getAuthorsById } from "../../managers/AuthorsManager"
 import * as React from 'react'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -10,23 +10,23 @@ import "./User.css"
 import { AutoFixHighRounded } from "@mui/icons-material"
 import CardMedia from '@mui/material/CardMedia'
 
-export const UserDetails = ({token}) => {
-    const [user, setUser] = useState({})
+export const AuthorDetails = ({token}) => {
+    const [author, setAuthor] = useState({})
     const { userId } = useParams()
 
     useEffect(() => {
-        getUsersById(userId).then(setUser)
+        getAuthorsById(userId).then(setAuthor)
     }, [userId])
 
     return (
         <Card sx={{ maxWidth: 500, padding: 5}}>
             <CardContent>
             <Stack spacing={2}>
-            <CardMedia sx={{ height: 120 }} image={user.profile_image_url} className="image" />
-                <Typography>Username: {user.username}</Typography>
-                <Typography>Full name: {user.full_name}</Typography>
-                <Typography>Bio: {user.bio}</Typography>
-                <Typography>Joined on: {user.date_joined}</Typography>
+            <CardMedia sx={{ height: 120 }} image={author.profile_image_url} className="image" />
+                <Typography>Username: {author.username}</Typography>
+                <Typography>Full name: {author.full_name}</Typography>
+                <Typography>Bio: {author.bio}</Typography>
+                <Typography>Joined on: {author.date_joined}</Typography>
                 </Stack>
             </CardContent>
         </Card>
