@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
-import { getPostByUser } from "../../managers/PostManger";
+import { getPostByLoggedInUser, getPostByUser } from "../../managers/PostManger";
 import { Post } from "./Post";
 
 export const UserPosts = ({ token }) => {
@@ -10,7 +10,7 @@ export const UserPosts = ({ token }) => {
 
     useEffect(
         () => {
-            getPostByUser(token).then(postData => setPosts(postData))
+            getPostByLoggedInUser().then(setPosts)
         }, [])
 
         return (
