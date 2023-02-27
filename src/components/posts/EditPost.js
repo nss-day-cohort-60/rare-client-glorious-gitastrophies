@@ -9,59 +9,32 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import TextareaAutosize from '@mui/base/TextareaAutosize'
 import "./Post.css"
+import { getSinglePost , updatePost } from "../../managers/PostManger"
 
 
-export const EditPost = ({token}) => {
-
-
-
+export const EditPost = () => {
+    const navigate = useNavigate()
+    const { postId } = useParams()
     const [post, setPost] = useState({
         title: "",
         image_url : "",
         content: ""
     })
-    const navigate = useNavigate()
-    const { postId } = useParams()
 
     useEffect(
-        () => {
-            fetch(`http://localhost:8088/posts/${postId}`)
-                .then(response => response.json())
-                .then((data) => {
-                    setPost(data[0])
-                })
-
-        },
-        [] 
+        () => {getSinglePost(postId).then(setPost)},[] 
     )
 
     const handleInputChange = (event) => {
-        const copyOfPost = { ...post };
-        copyOfPost[event.target.id] = event.target.value;
-        setPost(copyOfPost);
+        const copyOfPost = { ...post }
+        copyOfPost[event.target.name] = event.target.value
+        setPost(copyOfPost)
     };
 
-    
-
     const handleSubmit = (event) => {
-        console.log(post)
-
-        event.preventDefault();
-
-
-        fetch(`http://localhost:8088/posts/${postId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(post),
-            })
-            .then((res) => {
-                res.json()
-            })
-            .then(() => {
-                navigate(`/posts/${postId}`)
-            });
+        event.preventDefault()
+        updatePost(postId, post)
+        .then(()=>navigate('/'))
     }
 
 
@@ -76,7 +49,7 @@ export const EditPost = ({token}) => {
                         <fieldset>
                         <div className="form-group">
                         <label htmlFor="title">Title: </label>
-                        <input type="text" name="title" id="title" required autoFocus className="form-control"
+                        <input type="text" name="title" required autoFocus className="form-control"
                             
                             defaultValue={post.title}
                             onChange={handleInputChange}
@@ -95,7 +68,7 @@ export const EditPost = ({token}) => {
                             <label htmlFor="image_url">Add an Image:</label>
                                 <input
                                 required
-                                id="image_url"
+                                name="image_url"
                                 type="text"
                                 className="form-control"
                                 defaultValue={post.image_url}
