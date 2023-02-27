@@ -7,6 +7,8 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import "./User.css"
+import { AutoFixHighRounded } from "@mui/icons-material"
+import CardMedia from '@mui/material/CardMedia'
 
 export const UserDetails = ({token}) => {
     const [user, setUser] = useState({})
@@ -20,10 +22,11 @@ export const UserDetails = ({token}) => {
         <Card sx={{ maxWidth: 500, padding: 5}}>
             <CardContent>
             <Stack spacing={2}>
+            <CardMedia sx={{ height: 120 }} image={user.profile_image_url} className="image" />
                 <Typography>Username: {user.username}</Typography>
-                <Typography>Full name: {user.first_name} {user.last_name}</Typography>
+                <Typography>Full name: {user.full_name}</Typography>
                 <Typography>Bio: {user.bio}</Typography>
-                <Typography>Joined on: {user.created_on}</Typography>
+                <Typography>Joined on: {user.date_joined}</Typography>
                 </Stack>
             </CardContent>
         </Card>
