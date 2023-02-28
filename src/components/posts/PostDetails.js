@@ -23,7 +23,7 @@ export const PostDetails = () => {
       <CardContent>
         <Stack spacing={2}>
           <Typography className="post__title">Title: {post?.title}</Typography>
-          <Typography>Author: <Link className="post__authors_name" to={`/users/${post?.author?.id}`}> {post?.author?.full_name} </Link></Typography>
+          <Typography>Author: <Link className="post__authors_name" to={`/users/${post?.author?.id}`}> {post?.author?.username} </Link></Typography>
           <Typography className="post__category_id">Category: {post?.category?.label} </Typography> 
           <Typography className="post__publication_date">Date published: {post?.publication_date}</Typography>
           <Typography className="post__content"> {post?.content}</Typography>
