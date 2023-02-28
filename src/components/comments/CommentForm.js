@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { getCommentsByPostId } from "../../managers/CommentManager"
+// import { getCommentsByPostId } from "../../managers/CommentManager"
 import * as React from 'react'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
@@ -8,19 +8,16 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import "./Comment.css"
+import { addComment } from "../../managers/CommentManager"
+import { getSinglePost } from "../../managers/PostManger"
 
-
-export const NewComment = ({ token, setComments }) => {
+export const NewComment = ({ postId, setPost }) => {
 
     const navigate = useNavigate()
-    const { postId } = useParams()
-    const [comment, setComment] = useState({
-        post_id: parseInt(postId),
-        author_id: parseInt(token),
-        content: ""
-    })
-
     
+    const [comment, setComment] = useState({
+        body: ""
+    })
 
     const handleInputChange = (event) => {
         const copyOfComment = { ...comment }
@@ -30,26 +27,15 @@ export const NewComment = ({ token, setComments }) => {
 
     const handleSubmit = (event) => {
 
-
         event.preventDefault();
 
-        if (comment.content === "") {
+        if (comment.body === "") {
             alert("Cannot be empty.")
         } else {
-            let body = {
-                post_id: parseInt(postId),
-                author_id: parseInt(token),
-                content: comment.content
-            }
-
-            fetch(`http://localhost:8088/comments`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(body),
-            })
-            .then((res) => res.json()).then(() => getCommentsByPostId(postId ).then(commentData => setComments(commentData)))
+        
+            const copy = { ...comment }
+            addComment(postId, copy).then(() => { 
+                getSinglePost(postId).then((data) => setPost(data))})
         }
     }
     
@@ -60,11 +46,11 @@ return (
         <Typography variant="h6" color="text.primary">Add a Comment: </Typography>
             <TextField variant="outlined" type="text" name="comment" id="comment" required autoFocus className="form-control"
                 placeholder="What are your thoughts?"
-                value={comment.content}
+                value={comment.body}
                 onChange={
                     (evt) => {
                         const copy = {...comment}
-                        copy.content = evt.target.value
+                        copy.body = evt.target.value
                         setComment(copy)
                     }
                 }
