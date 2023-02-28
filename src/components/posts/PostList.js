@@ -21,7 +21,7 @@ export const PostList = ( {token, authorSelection, searchTermState }) => {
             if (authorSelection === 0) {
                 setFilteredPosts(posts) }
             else {
-                const filteredCopy = posts.filter(post => post.user_id === parseInt(authorSelection))
+                const filteredCopy = posts.filter(post => post.author.id === parseInt(authorSelection))
                 setFilteredPosts(filteredCopy)
             }
         },
