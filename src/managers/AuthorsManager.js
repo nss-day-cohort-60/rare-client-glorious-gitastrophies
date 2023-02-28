@@ -1,4 +1,4 @@
-export const getUsers = () => {
+export const getAuthors = () => {
     return fetch("http://localhost:8000/authors", {
         headers: {
             "Authorization" : `Token ${localStorage.getItem('auth_token')}`
@@ -7,7 +7,7 @@ export const getUsers = () => {
         .then(res => res.json())
 }
 
-export const getUsersByUsername = (username) => {
+export const getAuthorsByUsername = (username) => {
     return fetch(`http://localhost:8000/users?username=${username}`,{
         headers: {
             "Authorization" : `Token ${localStorage.getItem('auth_token')}`
@@ -16,7 +16,7 @@ export const getUsersByUsername = (username) => {
         .then(res => res.json())
 }
 
-export const getUsersById = (id) => {
+export const getAuthorsById = (id) => {
     return fetch(`http://localhost:8000/authors/${id}`,{
         headers: {
             "Authorization" : `Token ${localStorage.getItem('auth_token')}`

@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom"
 import { Login } from "../components/auth/Login"
 import { Register } from "../components/auth/Register"
-import { UserList } from "../components/user/UserList"
-import { UserDetails } from "../components/user/UserDetails"
+import { AuthorList } from "../components/author/AuthorList"
+import { AuthorDetails } from "../components/author/AuthorDetails"
 import { Authorized } from "./Authorized"
 import { NewPost } from "../components/posts/NewPost"
 import { EditPost } from "../components/posts/EditPost"
@@ -25,8 +25,8 @@ export const ApplicationViews = ({ token, setToken }) => {
       <Route path="/" element={<PostContainer />} />
 
       <Route path="/users">
-				<Route index element={<UserList />} />
-				<Route path=":userId" element={<UserDetails />} />
+				<Route index element={<AuthorList />} />
+				<Route path=":userId" element={<AuthorDetails />} />
 			</Route>
 
 			<Route path="/posts">

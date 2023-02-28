@@ -12,31 +12,41 @@ export const Register = ({setToken}) => {
   const password = useRef()
   const verifyPassword = useRef()
   const passwordDialog = useRef()
+  const picURL = useRef()
   const navigate = useNavigate()
 
   const handleRegister = (e) => {
-    e.preventDefault()
-    
-    if (password.current.value === verifyPassword.current.value) {
+    e.preventDefault();
+
+    if (
+      password.current.value === verifyPassword.current.value &&
+      username.current.value !== "" &&
+      firstName.current.value !== "" &&
+      lastName.current.value !== ""
+    ) {
       const newUser = {
         username: username.current.value,
         first_name: firstName.current.value,
         last_name: lastName.current.value,
         email: email.current.value,
         password: password.current.value,
-        bio: bio.current.value
-      }
+        bio: bio.current.value,
+        profile_image_url: picURL.current.value,
+      };
 
       registerUser(newUser).then((res) => {
-          if ("valid" in res && res.valid) {
-            setToken(res.token)
-            navigate("/")
-          }
-        })
+        if ("token" in res) {
+          setToken(res.token);
+          navigate("/");
+          alert("Thank you for registering");
+        }
+      });
     } else {
-      passwordDialog.current.showModal()
+      alert(
+        "Registration Incomplete, please fill out all the fields and make sure your passwords match"
+      );
     }
-  }
+  };
 
   return (
     <section className="columns is-centered">
@@ -87,6 +97,12 @@ export const Register = ({setToken}) => {
             </div>
           </div>
         </div>
+        <div className="field">
+          <label className="label">Profile Picture URL</label>
+          <div className="control">
+            <input className="input" type="text" ref={picURL} />
+          </div>
+        </div>
 
         <div className="field">
           <label className="label">Bio</label>
@@ -99,6 +115,7 @@ export const Register = ({setToken}) => {
           <div className="control">
             <button className="button is-link" type="submit">Submit</button>
           </div>
+          
           <div className="control">
             <Link to="/login" className="button is-link is-light">Cancel</Link>
           </div>
