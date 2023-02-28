@@ -12,11 +12,11 @@ import Stack from '@mui/material/Stack'
 import "./Comment.css"
 
 
-export const CommentList = ({ post, setPosts, postId }) => {
+export const CommentList = ({ post, setPost, postId }) => {
 
     const handleClick = (commentId) => {
         deleteComment(commentId).then(() => { 
-            getSinglePost(postId).then(setPosts)
+            getSinglePost(postId).then((data) => setPost(data))
         }
     )
     }

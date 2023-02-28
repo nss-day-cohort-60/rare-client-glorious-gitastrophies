@@ -8,9 +8,10 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import "./Comment.css"
+import { addComment } from "../../managers/CommentManager"
+import { getSinglePost } from "../../managers/PostManger"
 
-
-export const NewComment = ({ postId }) => {
+export const NewComment = ({ postId, setPost }) => {
 
     const navigate = useNavigate()
     
@@ -18,38 +19,25 @@ export const NewComment = ({ postId }) => {
         body: ""
     })
 
-    
-
     const handleInputChange = (event) => {
         const copyOfComment = { ...comment }
         copyOfComment[event.target.id] = event.target.value
         setComment(copyOfComment)
     }
 
-    // const handleSubmit = (event) => {
+    const handleSubmit = (event) => {
 
+        event.preventDefault();
 
-    //     event.preventDefault();
-
-    //     if (comment.content === "") {
-    //         alert("Cannot be empty.")
-    //     } else {
-    //         let body = {
-    //             post_id: parseInt(postId),
-    //             author_id: parseInt(token),
-    //             content: comment.content
-    //         }
-
-    //         fetch(`http://localhost:8088/comments`, {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             },
-    //             body: JSON.stringify(body),
-    //         })
-    //         .then((res) => res.json()).then(() => getCommentsByPostId(postId ).then(commentData => setComments(commentData)))
-    //     }
-    // }
+        if (comment.body === "") {
+            alert("Cannot be empty.")
+        } else {
+        
+            const copy = { ...comment }
+            addComment(postId, copy).then(() => { 
+                getSinglePost(postId).then((data) => setPost(data))})
+        }
+    }
     
 
 return (
@@ -58,17 +46,17 @@ return (
         <Typography variant="h6" color="text.primary">Add a Comment: </Typography>
             <TextField variant="outlined" type="text" name="comment" id="comment" required autoFocus className="form-control"
                 placeholder="What are your thoughts?"
-                value={comment.content}
+                value={comment.body}
                 onChange={
                     (evt) => {
                         const copy = {...comment}
-                        copy.content = evt.target.value
+                        copy.body = evt.target.value
                         setComment(copy)
                     }
                 }
             />
         <Button variant="contained" type="submit"
-            // onClick={handleSubmit}
+            onClick={handleSubmit}
             className="btn btn-primary">
                 Submit Comment
         </Button >

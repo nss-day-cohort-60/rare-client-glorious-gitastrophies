@@ -16,7 +16,7 @@ export const CommentListContainer = () => {
 
     return <article className="comment-list-container">
         <>
-            <NewComment postId={postId}/>
+            <NewComment postId={postId} setPost = {setPost} />
             <CommentList  post = {post} setPost = {setPost} postId = {postId}/>
         </>
     </article>
