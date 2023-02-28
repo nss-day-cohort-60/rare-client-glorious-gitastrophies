@@ -8,10 +8,10 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import "./Comment.css"
-import { addComment } from "../../managers/CommentManager"
+import { addComment, getCommentsByPostId } from "../../managers/CommentManager"
 import { getSinglePost } from "../../managers/PostManger"
 
-export const NewComment = ({ postId, setPost }) => {
+export const NewComment = ({ postId, setPost , setComments }) => {
 
     const navigate = useNavigate()
     
@@ -35,7 +35,7 @@ export const NewComment = ({ postId, setPost }) => {
         
             const copy = { ...comment }
             addComment(postId, copy).then(() => { 
-                getSinglePost(postId).then((data) => setPost(data))})
+                getCommentsByPostId(postId).then((data) => setComments(data))})
         }
     }
     

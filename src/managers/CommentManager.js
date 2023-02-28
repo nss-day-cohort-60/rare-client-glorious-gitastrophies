@@ -1,5 +1,9 @@
 export const getCommentsByPostId = (id) => {
-    return fetch(`http://localhost:8000/comments?post_id=${id}`)
+    return fetch(`http://localhost:8000/comments?post_id=${id}`, {
+        headers: {
+            "Authorization" : `Token ${localStorage.getItem('auth_token')}`
+        }
+    })
         .then(res => res.json())
   }
 
