@@ -1,19 +1,28 @@
 export const getCommentsByPostId = (id) => {
-    return fetch(`http://localhost:8088/comments?post_id=${id}`)
+    return fetch(`http://localhost:8000/comments?post_id=${id}`, {
+        headers: {
+            "Authorization" : `Token ${localStorage.getItem('auth_token')}`
+        }
+    })
         .then(res => res.json())
   }
 
-export const addComment = (post) => {
-    return fetch("http://localhost:8088/comments", {
+export const addComment = (postId, body) => {
+    return fetch(`http://localhost:8000/posts/${postId}/comment`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization" : `Token ${localStorage.getItem('auth_token')}`
         },
-        body: JSON.stringify(post)
+        body: JSON.stringify(body)
     })
 }
 
 export const deleteComment = (id) => {
-    return fetch(`http://localhost:8088/comments/${id}`, 
-    {method: "DELETE"})
-} 
+    return fetch(`http://localhost:8000/posts/${id}/delete_comment`, {
+        method: "DELETE",
+        headers: {
+            "Authorization" : `Token ${localStorage.getItem('auth_token')}`
+        },
+})
+}
